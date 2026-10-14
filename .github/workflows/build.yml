@@ -23,15 +23,16 @@ jobs:
           channel: stable
 
       - name: Add Android project
+        shell: bash
         run: |
           flutter create --org com.playbox --project-name playbox --platforms=android tmp_app
-          cp -r tmp_app/android ./android
-          sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' android/app/src/main/AndroidManifest.xml
-          sed -i 's#android:label="[^"]*"#android:label="Playbox"#' android/app/src/main/AndroidManifest.xml
+          cp -r tmp_app/android .
+          rm -rf tmp_app
 
-      - name: Fixed signing key
+      - name: Fix signing key
         env:
           KEY: ${{ secrets.DEBUG_KEYSTORE_B64 }}
+        shell: bash
         run: |
           if [ -n "$KEY" ]; then
             mkdir -p ~/.android
