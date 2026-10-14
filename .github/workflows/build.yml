@@ -24,7 +24,7 @@ jobs:
 
       - name: Add Android project
         run: |
-          flutter create --org com.playbox --project-name playbox --platforms=android tmp_app
+          flutter create --org com.playbox --project-name playbox --platforms=android .
           cp -r tmp_app/android .
           rm -rf tmp_app
 
