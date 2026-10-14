@@ -18,6 +18,14 @@ jobs:
           cp -r tmp_app/android ./android
           sed -i 's#<application#<uses-permission android:name="android.permission.INTERNET"/>\n    <application#' android/app/src/main/AndroidManifest.xml
           sed -i 's#android:label="[^"]*"#android:label="Playbox"#' android/app/src/main/AndroidManifest.xml
+          - name: Fixed signing key
+        env:
+          KEY: ${{ secrets.DEBUG_KEYSTORE_B64 }}
+        run: |
+          if [ -n "$KEY" ]; then
+            mkdir -p ~/.android
+            echo "$KEY" | base64 -d > ~/.android/debug.keystore
+          fi
       - run: flutter pub get
       - run: flutter build apk --release --dart-define=TMDB_KEY=${{ secrets.TMDB_KEY }}
       - uses: actions/upload-artifact@v4
