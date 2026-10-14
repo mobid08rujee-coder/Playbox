@@ -23,7 +23,6 @@ jobs:
           channel: stable
 
       - name: Add Android project
-        shell: bash
         run: |
           flutter create --org com.playbox --project-name playbox --platforms=android tmp_app
           cp -r tmp_app/android .
@@ -32,7 +31,6 @@ jobs:
       - name: Fix signing key
         env:
           KEY: ${{ secrets.DEBUG_KEYSTORE_B64 }}
-        shell: bash
         run: |
           if [ -n "$KEY" ]; then
             mkdir -p ~/.android
