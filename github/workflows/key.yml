@@ -1,0 +1,14 @@
+name: Make Key
+on: workflow_dispatch
+jobs:
+  key:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          keytool -genkey -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          base64 -w0 debug.keystore > key.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: key
+          path: key.txt
+          retention-days: 1
