@@ -27,16 +27,7 @@ jobs:
           flutter create --org com.playbox --project-name playbox --platforms=android .
           cp -r tmp_app/android .
           rm -rf tmp_app
-
-      - name: Fix signing key
-        env:
-          KEY: ${{ secrets.DEBUG_KEYSTORE_B64 }}
-        run: |
-          if [ -n "$KEY" ]; then
-            mkdir -p ~/.android
-            echo "$KEY" | base64 -d > ~/.android/debug.keystore
-          fi
-
+          
       - name: Get dependencies
         run: flutter pub get
 
