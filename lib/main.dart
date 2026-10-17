@@ -172,10 +172,19 @@ class AppState extends ChangeNotifier {
 
 final app = AppState();
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await app.init();
-  runApp(const PlayboxApp());
+void main() {
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    ErrorWidget.builder = (d) => Material(
+        color: Colors.black,
+        child: Padding(padding: const EdgeInsets.all(16), child: SingleChildScrollView(child: Text('${d.exception}', style: const TextStyle(color: Colors.redAccent)))));
+    try {
+      await app.init();
+    } catch (e) {
+      app.errors['init'] = '$e';
+    }
+    runApp(const PlayboxApp());
+  }, (e, s) {});
 }
 
 class PlayboxApp extends StatelessWidget {
