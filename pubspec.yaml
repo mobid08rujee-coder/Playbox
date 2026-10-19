@@ -10,5 +10,6 @@ dependencies:
   http: ^1.2.0
   shared_preferences: ^2.2.0
   video_player: ^2.8.0
+  share_plus: ^10.1.4
 flutter:
   uses-material-design: true
