@@ -543,7 +543,6 @@ class DetailPage extends StatelessWidget {
         },
       );
 }
-
 // ---------- Pages ----------
 class Shell extends StatefulWidget {
   const Shell({super.key});
